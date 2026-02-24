@@ -16,6 +16,8 @@ model Trip {
   createdAt   DateTime @default(now()) @map("created_at")
 
   participants Participant[]
+  activities   Activity[]
+  links        Link[]
 
   @@map("trips")
 }
@@ -28,8 +30,30 @@ model Participant {
   isConfirmed Boolean @default(false) @map("is_confirmed")
   isOwner     Boolean @default(false) @map("is_owner")
 
-  trip   Trip   @relation(fields: [tripId], references: [id])
   tripId String @map("trip_id") @db.Uuid
+  trip   Trip   @relation(fields: [tripId], references: [id])
 
   @@map("participants")
+}
+
+model Activity {
+  id       String   @id @default(uuid()) @db.Uuid
+  title    String
+  occursAt DateTime @map("occurs_at")
+
+  tripId String @map("trip_id") @db.Uuid
+  trip   Trip   @relation(fields: [tripId], references: [id])
+
+  @@map("activities")
+}
+
+model Link {
+  id    String @id @default(uuid()) @db.Uuid
+  title String
+  url   String
+
+  tripId String @map("trip_id") @db.Uuid
+  trip   Trip   @relation(fields: [tripId], references: [id])
+
+  @@map("links")
 }
