@@ -2,7 +2,7 @@
   "name": "api",
   "packageManager": "yarn@4.4.0",
   "scripts": {
-    "dev": "tsx watch src/server.ts"
+    "dev": "tsx watch --env-file .env src/server.ts"
   },
   "devDependencies": {
     "@types/node": "^25.3.0",
