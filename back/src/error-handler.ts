@@ -1,13 +1,11 @@
 import { FastifyInstance } from "fastify";
 import { hasZodFastifySchemaValidationErrors } from "fastify-type-provider-zod";
 import { ZodError } from "zod";
-import { ClientError } from "./errors/client-error";
+import { ClientError } from "./app/shared/errors/client-error";
 
 type FastifyErrorHandler = FastifyInstance['errorHandler']
 
 export const errorHandler: FastifyErrorHandler = (error, request, reply) => {
-  console.log(error);
-
   if (hasZodFastifySchemaValidationErrors(error)) {
     return reply.status(400).send({
       message: 'Invalid input',
